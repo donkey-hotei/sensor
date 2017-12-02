@@ -13,8 +13,9 @@ ENV MODE="full"
 
 COPY apt-install /
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    `cat /apt-install` && \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    $(cat /apt-install) && \
     apt-get clean && \
     apt-get -y autoclean && \
     apt-get -y autoremove && \
@@ -25,7 +26,6 @@ COPY binaries/kal-linux-arm /usr/local/bin/
 
 # Place Filebeat
 COPY binaries/filebeat-linux-arm /usr/local/bin
-ADD https://raw.githubusercontent.com/elastic/beats/master/LICENSE /filebeat-lic
 
 # Get Kalibrate source for posterity
 ADD https://github.com/hainn8x/kalibrate-rtl/archive/master.zip /app/source
